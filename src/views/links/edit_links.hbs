@@ -1,0 +1,21 @@
+<h3>edit notes</h3>
+<form action="/link/edit/{{editLinks._id}}?_method=PUT" method="POST" >
+<!--input oculto-->
+<input type="hidden" name="_method" value="PUT">
+<!--recibir datos de controller "renderEditForm"-->
+
+<div class="container"> 
+<input type="text" name ="tittle" value="{{editLinks.tittle}}">
+
+<input type="text" name ="category" value="{{editLinks.category}}">
+
+
+<input type="text" name ="link" value="{{editLinks.link}}">
+    
+    <button type="submit">
+    actualizar
+    </button>
+
+</form>
+
+</div>

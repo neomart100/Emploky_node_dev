@@ -1,0 +1,23 @@
+<h1>todos los links</h1>
+<div class="link_box">
+<!-- recorrer las propiedades de los objetos -->
+{{#each findLinks}}
+    <div class="container"> 
+<h4>{{tittle}}</h4>
+
+ <h4>{{link}}</h4>
+
+  <h4>{{category}}</h4>
+  <!-- metodo a enviar como "?"-->
+<form action="/link/delete/{{_id}}?_method=DELETE" method="POST">
+<!-- Input oculto con la peticion--->
+<Input type="hidden" name="_method" value="DELETE">
+    <button type="submit">
+        eliminar
+    </button>
+</form>
+<a href="link/edit/{{_id}}">editar</a>
+
+    </div>
+{{/each}}
+</div>
