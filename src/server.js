@@ -74,6 +74,7 @@ app.use(require(`./routes/index_routes`));
 //rutas de crear,elimiar y actualizar
 app.use(require(`./routes/emploky_routes`));
 
+app.use(require(`./routes/user_routes`))
 
 //----------static files(carpeta "public")-------
 //encontrar la carpeta public dentro de el proycto
