@@ -17,7 +17,12 @@ category: {
  link:{
      type:String,
      required:true
- }//final de los schemas
+ },
+  user:{
+      type:String,
+      required:true
+  }
+  //final de los schemas
 
 },
 {

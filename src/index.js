@@ -7,5 +7,5 @@ require(`./database`);
 
 //inicializamos el servidor con appp
 app.listen(app.get(`port`), () =>{
- console.log(`server on port 3001`)
+console.log(`Express server listening on port 3001`)
 })

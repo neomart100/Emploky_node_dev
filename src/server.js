@@ -1,6 +1,5 @@
-const express = require(`express`);
-//---------INICIALIZACIONES------------
-const app = express();
+//---------MODULOS------------
+ const express = require(`express`);
 //requerir motor de plantillas
 const exphbs = require(`express-handlebars`);
 //recibe el archivo path de node
@@ -13,7 +12,12 @@ const morgan = require(`morgan`);
 const flash = require(`connect-flash`);
 //-MODULO EXPRESS-SESSION
 const session = require(`express-session`);
+//modulo passport
+const passport = require(`passport`);
 
+//-------INICIALIZACIONES---------
+const app = express();
+require(`./config/passport_local`)
 
 
 //-----------CONFIG----------------
@@ -55,14 +59,24 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
-
+//requerir passport
+app.use(passport.initialize());
+app.use(passport.session());
+//requerir conect flash
 app.use(flash());
 
 //-----------GLOBAL VARIABLES------------
 //connet flash
 app.use((req,res,next) =>{
-
+  //messages de todo va bien
 res.locals.success_msg =  req.flash(`success_msg`);
+  //mensajes de todo va mal
+res.locals.error_msg = req.flash(`error_msg`);
+  //mensajes de passport
+  res.locals.error = req.flash(`error`)
+  //session de usuarios(autentcicado)
+  res.locals.user = req.user|| null;
+
 
   next();
 
@@ -73,7 +87,7 @@ app.use(require(`./routes/index_routes`));
 
 //rutas de crear,elimiar y actualizar
 app.use(require(`./routes/emploky_routes`));
-
+//rutas para los usuarios
 app.use(require(`./routes/user_routes`))
 
 //----------static files(carpeta "public")-------

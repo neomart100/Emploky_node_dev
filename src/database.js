@@ -10,7 +10,8 @@ const MONGODB_URI = `mongodb://${EMPLOKY_MONGODB_HOST}/${EMPLOKY_MONGODB_DATA}`;
 //establecer conexiones,direcciones y configuracion
 mongoose.connect(MONGODB_URI,{
 useUnifiedTopology: true ,
-	useNewUrlParser: true
+  useNewUrlParser: true,
+  useCreateIndex: true
 })
 
 //cuando se conecten

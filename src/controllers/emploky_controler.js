@@ -5,6 +5,8 @@ const  relinks = require(`../models/links`);
 
 //----FORMULARIO DE ENVIO-----
 emplokyCTRL.renderEmplokyForm = (req, res) => {
+  console.log(req.modelUser);
+
   res.render(`links/new_link`);
 };
 
@@ -16,6 +18,8 @@ emplokyCTRL.createEmplokyLink = async (req, res) => {
   const{category,tittle,link}= req.body;
   ///nueva nota
   const newLink = new relinks ({category,tittle,link  });
+  //id del usuario que guardo el link
+  newLink.user = req.user.id;
   //guradar link 
   await newLink.save();
   req.flash(`success_msg`, `El link ha sido creado satisfactoriamente`);
@@ -30,7 +34,7 @@ emplokyCTRL.createEmplokyLink = async (req, res) => {
 
 emplokyCTRL.renderLinks = async (req, res) => {
   //buscar las colecciones de mongodb 
-  const findLinks = await relinks.find().lean();
+  const findLinks = await relinks.find({user:req.user.id}).lean().sort({createdAt:`desc`});
 
   res.render(`../views/links/all_links`,{findLinks});
 };
@@ -39,6 +43,11 @@ emplokyCTRL.renderLinks = async (req, res) => {
 //actualizar
 emplokyCTRL.renderEditForm = async (req, res) => {
   const editLinks = await relinks.findById(req.params.id).lean();
+  //si los id de las notas no coinciden
+  if(editLinks.user != req.user.id){
+    req.flash(`error_msg`,`no autorizado`)
+    return res.redirect(`/link`);
+  }
   //pasar la nota a la vista(view)
   res.render(`../views/links/edit_links`, {editLinks} );
 };

@@ -1,0 +1,12 @@
+<!--error de el passport login-->
+{{#if error}}
+    <h3 style="color:red;">{{error}}</h3>
+
+{{/if}}
+
+{{#each errors}}
+<!--mostrar los errors de user_controller mediante el recorrido
+de listas-->
+<h3 style="color:red;">{{text}}</h3>
+
+{{/each}}
