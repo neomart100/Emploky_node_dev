@@ -1,9 +1,13 @@
+//---------ENRUTADOR--------
 const {Router} = require(`express`);
 
 const router = Router();
 
+//------AUTENTICACION DE USUARIO----
 //autenticacion de ususarios por medio de helpers
 const {isAuthenticated} = require(`../helpers/validate`);
+
+//----RUTAS DE SUBIDA DE LOS LINKS----
 
 //importar desde emploky controllers
 const {
@@ -28,6 +32,8 @@ router.put(`/link/edit/:id`,isAuthenticated,updateLinks);
 //elimiar 
 router.delete(`/link/delete/:id`,isAuthenticated,deleteLinks);
 
+///----SUBIDA DE IMAGENES DE USUARIO----|:w
+//
 module.exports = router;
 
 

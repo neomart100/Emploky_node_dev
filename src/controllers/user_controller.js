@@ -74,7 +74,6 @@ userCTRL.signIn = passport.authenticate(`local`, {
       failureRedirect: `/user/signin`,
       failureFlash: true
     });
-
 //Logout de usuarios
 userCTRL.logout = (req,res) =>{
   ///passport logout

@@ -5,7 +5,6 @@ const localStrategy = require(`passport-local`).Strategy;
 //requerimos el modelo de la base de datos user
 const User = require(`../models/user`);
 
-
 //-------MIDLERWARE--------
 //nuevo localStrategy
 passport.use(new localStrategy({
@@ -17,7 +16,7 @@ passport.use(new localStrategy({
   //--consultar base de datos--
   //comparar email
   const modelUser = await User.findOne({email})
-
+   
   if(!modelUser){
     return done(null,false,{message:`user not found`})
   }
@@ -37,11 +36,15 @@ passport.use(new localStrategy({
 }));
 
 passport.serializeUser((user, done) => {
-    done(null, user.id);
+  done(null,user.id);
 });
 
 passport.deserializeUser((id, done) => {
     User.findById(id, (err, user) => {
           done(err, user);
-        });
+    });
+
 });
+User.usename = (user,done) =>{
+  done(null,user.name)
+};

@@ -14,11 +14,12 @@ const flash = require(`connect-flash`);
 const session = require(`express-session`);
 //modulo passport
 const passport = require(`passport`);
+//modulo para la subida de imagenes de ususario
 
 //-------INICIALIZACIONES---------
 const app = express();
 require(`./config/passport_local`)
-
+require(`./models/user`)
 
 //-----------CONFIG----------------
 //configuracion de puerto
@@ -45,13 +46,14 @@ app.set(`view engine`, `.hbs`);
 
 
 //---------------MIDLERWARESfunciones)---------------
-//usar morgan
+//---MORGAN----
 app.use(morgan(`dev`));
+
 //datos del servidor que recibira el servidor en formato json 
 app.use(express.urlencoded({extended: false}));
 
 app.use(methodOverride(`_method`));
-
+//--EXPRESS SESSION---
 app.use(session({
   //configuraciones de express session
   //guradar session en el servidor
@@ -62,6 +64,7 @@ app.use(session({
 //requerir passport
 app.use(passport.initialize());
 app.use(passport.session());
+//--CONNECT FLASH
 //requerir conect flash
 app.use(flash());
 
@@ -76,8 +79,7 @@ res.locals.error_msg = req.flash(`error_msg`);
   res.locals.error = req.flash(`error`)
   //session de usuarios(autentcicado)
   res.locals.user = req.user|| null;
-
-
+ 
   next();
 
 });
